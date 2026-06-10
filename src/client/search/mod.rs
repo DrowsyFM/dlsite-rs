@@ -299,21 +299,33 @@ pub(crate) fn parse_search_html(html: &str) -> Result<Vec<SearchProductItem>> {
                 })
                 .unwrap_or(WorkType::Unknown("".to_string())),
             thumbnail_url: {
-                let img_e = item_element
-                    .select(&Selector::parse(".work_thumb_inner > img").unwrap())
+                let thumb_inner_e = item_element
+                    .select(&Selector::parse(".work_thumb_inner").unwrap())
                     .next()
                     .to_parse_error("Failed to find thumbnail")?;
 
-                let src = img_e.value().attr("src");
-                let data_src = img_e.value().attr("data-src");
-                match (src, data_src) {
-                    (Some(src), _) => format!("https:{}", src),
-                    (_, Some(data_src)) => format!("https:{}", data_src),
-                    (_, _) => {
-                        return Err(crate::DlsiteError::Parse(
-                            "Failed to find thumbnail".to_string(),
-                        ))
-                    }
+                let thumb_e = thumb_inner_e
+                    .select(&Selector::parse("thumb-with-ng-filter-block").unwrap())
+                    .next()
+                    .to_parse_error("Failed to find thumbnail")?;
+
+                let src = [":thumb-candidates", "thumb-candidates"]
+                    .iter()
+                    .filter_map(|attr| thumb_e.value().attr(attr))
+                    .find_map(|attr| {
+                        attr.split(|c| c == '\'' || c == '"').find(|url| {
+                            url.starts_with("//")
+                                || url.starts_with("http://")
+                                || url.starts_with("https://")
+                        })
+                    })
+                    .to_parse_error("Failed to find thumbnail")?
+                    .replace("\\/", "/");
+
+                if src.starts_with("//") {
+                    format!("https:{}", src)
+                } else {
+                    src
                 }
             },
             rating: {

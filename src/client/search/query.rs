@@ -64,7 +64,7 @@ pub struct SearchProductQuery {
     /// 30, 50 or 100
     pub per_page: Option<u32>,
     pub page: Option<u32>,
-    pub campagin: Option<bool>,
+    pub campaign: Option<bool>,
     /// Whether the sales end date is in 24 hours
     pub soon: Option<bool>,
     pub is_pointup: Option<bool>,
@@ -98,7 +98,7 @@ impl SearchProductQuery {
         push_option!(path, self, rate_average);
         push_option!(path, self, per_page);
         push_option!(path, self, page);
-        push_option_bool!(path, self, campagin);
+        push_option_bool!(path, self, campaign);
         push_option_bool!(path, self, soon);
         push_option_bool!(path, self, is_pointup);
         push_option_bool!(path, self, is_free);
