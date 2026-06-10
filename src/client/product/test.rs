@@ -80,3 +80,41 @@ async fn get_product_success(id: &str) {
     let client = DlsiteClient::default();
     client.product().get_all(id).await.unwrap();
 }
+
+#[tokio::test]
+async fn get_comments() {
+    let client = DlsiteClient::default();
+    let res = client
+        .product()
+        .get_review(
+            "RJ01286782",
+            10,
+            1,
+            false,
+            super::review::ReviewSortOrder::Top,
+        )
+        .await
+        .unwrap();
+    assert!(res.is_success);
+    assert!(!res.review_list.is_empty());
+    assert!(res.reviewer_genre_list.is_none());
+}
+
+#[tokio::test]
+async fn get_comments_mix_pickup() {
+    let client = DlsiteClient::default();
+    let res = client
+        .product()
+        .get_review(
+            "RJ01286782",
+            6,
+            1,
+            true,
+            super::review::ReviewSortOrder::Top,
+        )
+        .await
+        .unwrap();
+    assert!(res.is_success);
+    assert!(!res.review_list.is_empty());
+    assert!(res.reviewer_genre_list.is_some());
+}

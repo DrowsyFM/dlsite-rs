@@ -14,7 +14,7 @@ pub struct ProductReview {
     pub is_success: bool,
     pub error_msg: String,
     pub review_list: Vec<Review>,
-    #[serde(deserialize_with = "deserialize_reviewer_genre")]
+    #[serde(default, deserialize_with = "deserialize_reviewer_genre")]
     pub reviewer_genre_list: Option<Vec<(Genre, i32)>>,
 }
 
