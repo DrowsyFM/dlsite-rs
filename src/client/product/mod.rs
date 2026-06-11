@@ -70,6 +70,7 @@ pub struct Product {
     pub file_format: Vec<String>,
     pub file_size: Option<String>,
     pub product_format: Vec<String>,
+    pub product_description: Option<String>,
 }
 
 /// People who contributed to a product on DLsite.
@@ -125,6 +126,7 @@ impl<'a> ProductClient<'a> {
             file_format: html_data.file_format,
             file_size: html_data.file_size,
             product_format: html_data.product_format,
+            product_description: html_data.description_html,
         })
     }
 
