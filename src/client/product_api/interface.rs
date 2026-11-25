@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use serde_with::{formats::PreferOne, serde_as, DefaultOnError, OneOrMany};
+use serde_with::{DefaultOnError, OneOrMany, formats::PreferOne, serde_as};
 
 use crate::interface::product::{AgeCategory, FileType, WorkCategory, WorkType};
 

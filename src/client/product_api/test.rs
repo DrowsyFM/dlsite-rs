@@ -1,10 +1,10 @@
 use anyhow::Context;
-use rand::Rng;
+use rand::RngExt;
 
 use super::interface::GenreApi;
 use crate::{
-    interface::product::{AgeCategory, WorkType},
     DlsiteClient,
+    interface::product::{AgeCategory, WorkType},
 };
 use test_case::test_case;
 

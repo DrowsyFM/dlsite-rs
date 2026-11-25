@@ -3,9 +3,9 @@ use chrono::NaiveDate;
 use test_case::test_case;
 
 use crate::{
+    DlsiteClient,
     interface::genre::Genre,
     interface::product::{AgeCategory, WorkType},
-    DlsiteClient,
 };
 
 #[tokio::test]

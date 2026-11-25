@@ -151,7 +151,7 @@ pub struct ProductAjax {
     pub dlsiteplay_work: bool,
     pub is_discount: bool,
     pub is_pointup: bool,
-    pub is_rental: bool,
+    //pub is_rental: bool,
     pub is_ana: bool,
     pub is_sale: bool,
     pub is_title_completed: bool,
@@ -167,7 +167,7 @@ pub struct ProductAjax {
     pub is_wcc: bool,
     pub is_pack_work: bool,
 
-    pub upgrade_min_price: i32,
+    //pub upgrade_min_price: i32,
     pub limit_stock: i32,
     pub timesale_stock: i32,
     pub official_price: i32,
@@ -214,7 +214,7 @@ pub struct ProductAjax {
     pub product_point_rate: Option<Value>,
     pub discount_caption: Option<Value>,
     pub gift: Vec<Value>,
-    pub work_rentals: Vec<Value>,
+    //pub work_rentals: Vec<Value>,
 }
 
 fn deserialize_work_type<'de, D>(deserializer: D) -> std::result::Result<WorkType, D::Error>

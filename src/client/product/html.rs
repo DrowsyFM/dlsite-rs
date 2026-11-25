@@ -5,10 +5,10 @@ use scraper::{ElementRef, Html, Selector};
 use url::Url;
 
 use crate::{
+    DlsiteError,
     error::Result,
     interface::{genre::Genre, product::AgeCategory},
     utils::ToParseError,
-    DlsiteError,
 };
 
 use super::ProductPeople;
@@ -179,7 +179,7 @@ pub(super) fn parse_product_html(html: &Html) -> Result<ProductHtml> {
             _ => {
                 return Err(DlsiteError::Parse(format!(
                     "failed to convert {age_rating} to enum"
-                )))
+                )));
             }
         }),
         None => None,
@@ -282,7 +282,7 @@ pub(super) fn parse_product_people(html: &Html) -> Result<ProductPeople> {
     })
 }
 
-fn get_work_outline_table(html: &Html) -> HashMap<String, ElementRef> {
+fn get_work_outline_table(html: &Html) -> HashMap<String, ElementRef<'_>> {
     let mut map = HashMap::new();
     for element in html.select(&Selector::parse("#work_outline tr").unwrap()) {
         let th = element.select(&Selector::parse("th").unwrap()).next();

@@ -49,23 +49,23 @@ impl DlsiteClient {
 /// The sub-client has a DlsiteClient reference inside and has implementations of fetch and parse focused on certain purposes.
 impl DlsiteClient {
     /// Get a client to fetch product info using 'scraping' method. For more information, see [`product::ProductClient`].
-    pub fn product(&self) -> product::ProductClient {
+    pub fn product(&self) -> product::ProductClient<'_> {
         product::ProductClient { c: self }
     }
 
     /// Get a client to fetch product info using 'api' method. For more information, see
     /// [`product_api::ProductApiClient`].
-    pub fn product_api(&self) -> product_api::ProductApiClient {
+    pub fn product_api(&self) -> product_api::ProductApiClient<'_> {
         product_api::ProductApiClient { c: self }
     }
 
     /// Get a client to fetch circle info. For more information, see [`circle::CircleClient`].
-    pub fn circle(&self) -> circle::CircleClient {
+    pub fn circle(&self) -> circle::CircleClient<'_> {
         circle::CircleClient { c: self }
     }
 
     /// Get a client to search things. For more information, see [`search::SearchClient`].
-    pub fn search(&self) -> search::SearchClient {
+    pub fn search(&self) -> search::SearchClient<'_> {
         search::SearchClient { c: self }
     }
 }

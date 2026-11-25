@@ -3,13 +3,13 @@
 use std::collections::HashMap;
 
 use crate::{
+    DlsiteClient, DlsiteError,
     error::Result,
     interface::{
         genre::Genre,
         product::{AgeCategory, WorkType},
     },
     utils::ToParseError as _,
-    DlsiteClient, DlsiteError,
 };
 use ajax::ProductAjax;
 use chrono::NaiveDate;

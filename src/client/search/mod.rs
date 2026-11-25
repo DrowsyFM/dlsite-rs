@@ -7,10 +7,10 @@ use scraper::{Html, Selector};
 use serde::Deserialize;
 
 use crate::{
+    DlsiteClient,
     error::Result,
     interface::product::{AgeCategory, WorkType},
     utils::ToParseError,
-    DlsiteClient,
 };
 
 pub use self::query::SearchProductQuery;
@@ -168,7 +168,7 @@ pub(crate) fn parse_search_html(html: &str) -> Result<Vec<SearchProductItem>> {
                             _ => {
                                 return Err(crate::DlsiteError::Parse(
                                     "Age category parse error: invalid title".to_string(),
-                                ))
+                                ));
                             }
                         }
                     } else {
@@ -287,12 +287,11 @@ pub(crate) fn parse_search_html(html: &str) -> Result<Vec<SearchProductItem>> {
                 .split(' ')
                 .find_map(|c| {
                     if let Some(c) = c.strip_prefix("type_") {
-                        if let Ok(wt) = c.parse::<WorkType>() {
-                            if let WorkType::Unknown(_) = wt {
-                                return None;
-                            } else {
-                                return Some(wt);
-                            }
+                        let Ok(wt) = c.parse::<WorkType>();
+                        if let WorkType::Unknown(_) = wt {
+                            return None;
+                        } else {
+                            return Some(wt);
                         }
                     }
                     None
@@ -338,10 +337,10 @@ pub(crate) fn parse_search_html(html: &str) -> Result<Vec<SearchProductItem>> {
                         .expect("Failed to get rating")
                         .split(' ')
                         .find_map(|c| {
-                            if let Some(c) = c.strip_prefix("star_") {
-                                if let Ok(r) = c.parse::<f32>() {
-                                    return Some(r / 10.0);
-                                }
+                            if let Some(c) = c.strip_prefix("star_")
+                                && let Ok(r) = c.parse::<f32>()
+                            {
+                                return Some(r / 10.0);
                             }
                             None
                         })

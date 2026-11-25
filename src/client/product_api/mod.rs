@@ -4,7 +4,7 @@ pub mod interface;
 #[cfg(test)]
 mod test;
 
-use crate::{error::Result, DlsiteClient, DlsiteError};
+use crate::{DlsiteClient, DlsiteError, error::Result};
 
 use self::interface::ProductApiContent;
 
@@ -49,7 +49,10 @@ impl<'a> ProductApiClient<'a> {
         let result: std::result::Result<Vec<ProductApiContent>, _> = serde_ignored::deserialize(
             jd,
             |path| {
-                tracing::error!("Ignored path: '{}' for '{id}'. Please report this to https://github.com/ozonezone/dlsite-rs", path.to_string());
+                tracing::error!(
+                    "Ignored path: '{}' for '{id}'. Please report this to https://github.com/ozonezone/dlsite-rs",
+                    path.to_string()
+                );
             },
         );
         #[cfg(not(feature = "unknown-field-log"))]

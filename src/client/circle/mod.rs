@@ -5,8 +5,8 @@ mod query;
 use scraper::{Html, Selector};
 
 use super::{
-    search::{parse_search_html, SearchResult},
     DlsiteClient,
+    search::{SearchResult, parse_search_html},
 };
 use crate::{error::Result, utils::ToParseError as _};
 
