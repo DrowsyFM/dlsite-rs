@@ -312,7 +312,7 @@ pub(crate) fn parse_search_html(html: &str) -> Result<Vec<SearchProductItem>> {
                     .iter()
                     .filter_map(|attr| thumb_e.value().attr(attr))
                     .find_map(|attr| {
-                        attr.split(|c| c == '\'' || c == '"').find(|url| {
+                        attr.split(['\'', '"']).find(|url| {
                             url.starts_with("//")
                                 || url.starts_with("http://")
                                 || url.starts_with("https://")
